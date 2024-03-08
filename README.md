@@ -6,6 +6,6 @@ The responder controls a 7/8 segment LED. Each initiator, once it has found the 
 
 ## Feedback and Questions
 
-If you have feedback or questions on this example, you can submit it as an **Issue**.
+If you have feedback or questions on this example, you can submit it as an **Issue** in this repository.
 
-If you have questions or wish to know about about ESP-NOW, you can check and submit issues on the [Espressif ESP-NOW](https://github.com/espressif/esp-now) repository.
+If you have questions or wish to know more about ESP-NOW, you can check and submit issues on the [Espressif ESP-NOW](https://github.com/espressif/esp-now) repository.
