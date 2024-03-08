@@ -1,0 +1,21 @@
+menu "Example Configuration"
+    config RETRY_NUM
+        int "Packet retransmission count"
+        default 5
+        help
+            Set the packet retransmission count. The more retransmission 
+            times, the lower the throughput rate.
+
+    config RESPONDER_PREFIX
+        string "The prefix of responder's name"
+        default "$RESPONDER/"
+
+    config INITIATOR_PREFIX
+        string "The prefix of initiator's name"
+        default "$INITIATOR/"
+
+    config GROUP_NAME
+        string "Your group name"
+        default "GROUP_0"
+
+endmenu
