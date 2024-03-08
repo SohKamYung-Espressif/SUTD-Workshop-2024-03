@@ -3,3 +3,9 @@
 This is an example of how to use ESP-NOW to set up system with multiple initiators and a single responder.
 
 The responder controls a 7/8 segment LED. Each initiator, once it has found the responder, turns on or off a LED segment on the responder.
+
+## Feedback and Questions
+
+If you have feedback or questions on this example, you can submit it as an **Issue**.
+
+If you have questions or wish to know about about ESP-NOW, you can check and submit issues on the [Espressif ESP-NOW](https://github.com/espressif/esp-now) repository.
