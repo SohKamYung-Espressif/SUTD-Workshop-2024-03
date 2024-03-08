@@ -10,7 +10,7 @@ Run `idf.py set-target esp32c6` to set the ESP32-C6 as the target device for the
 
 Run `idf.py menuconfig` and select `Example Configuration` to configure the responder.
 
-By default the responser will broadcast `$RESPONDER/GROUP_0` and listen for `$INITIATOR/GROUP_0` from initiators. These are the default values. You can modify the values using Menuconfig as required.
+By default the responser will broadcast `$RESPONDER/GROUP_0` and listen for `$INITIATOR/GROUP_0/0` from initiators. These are the default values. You can modify the values using Menuconfig as required.
 
 **Important:** make sure the same values for initiator and responder messages are used. Otherwise, the responder and initiators will not be able to communicate with each other.
 

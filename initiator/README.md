@@ -18,8 +18,8 @@ You should modify the GPIO pin value in Menuconfig to control the required LED s
 
 After you have finished using menuconfig, run `idf.py build` to build the program.
 
-If the program builds successfully, run `idf.py -p COMx flash monitor` to flash the code to the ESP32-C6 and monitor the output from the debug serial port. Substitue `COMx` with the actual COM port the ESP32-C6 is using. If you have only one ESP32 device connected to your computer, you can omit `-p COMx`. `idf.py` will automatically detect the correct COM port to use.
+If the program builds successfully, run `idf.py -p COMx flash monitor` to flash the code to the ESP32-C6 and monitor the output from the debug serial port. Substitute `COMx` with the actual COM port the ESP32-C6 is using. If you have only one ESP32 device connected to your computer, you can omit `-p COMx`. `idf.py` will automatically detect the correct COM port to use.
 
 ## Running the program
 
-On start-up, the ESP32-C6 initiator listen for a broadcast message from the responder to discover its unique MAC address. This is used to ID the responder to send messages to. When the `BOOT` button is pressed, the initiator with send a command to the responder to toggle the requested LED segment.
+On start-up, the ESP32-C6 initiator listen for a broadcast message from the responder to discover its unique MAC address. This is used to ID the responder to send messages to. When the `BOOT` button is pressed, the initiator will send a command to the responder to toggle the requested LED segment.
