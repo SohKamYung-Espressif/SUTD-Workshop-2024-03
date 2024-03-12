@@ -1,0 +1,30 @@
+@startuml
+!pragma teoz true
+
+title Responder and Initiator in Action
+
+participant Responder as resp
+participant Initiator as init
+actor       User      as user
+
+== Initialization ==
+
+note over resp : Broadcast Name
+
+& note over init : Listen for Responders
+
+== Initiator Binding to Responder ==
+
+resp -> init : Name received by Initiator
+
+note over init : Bind to Responder
+
+== User Toggles LED ==
+
+user -> init : Press BOOT Button
+
+init -> resp : Send Initiator message
+
+note over resp: Toggle LED
+
+@enduml
