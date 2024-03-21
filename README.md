@@ -1,5 +1,7 @@
 # ESP-NOW Initiator and Responder Example for SUTD Workshop, March 2024
 
+This repository is created for ESP-NOW Workshop, conducted in SUTD, on March 2024. Refer to the [slide deck](https://www.canva.com/design/DAF-zsBoE1A/o0TN6wc4VGTCOcZOuCbOWw/view?utm_content=DAF-zsBoE1A&utm_campaign=designshare&utm_medium=link&utm_source=editor) for the full lesson.
+
 This is an example of how to use ESP-NOW to set up system with multiple initiators and a single responder.
 
 The responder controls a 7/8 segment LED. Each initiator, once it has found the responder, turns on or off a LED segment on the responder.
