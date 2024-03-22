@@ -23,3 +23,13 @@ If the program builds successfully, run `idf.py -p COMx flash monitor` to flash 
 ## Running the program
 
 On start-up, the ESP32-C6 responder will gradually light up all the LED segments. This will let you verify that the LEDs are working as expect. At the end, all the LEDs are turned off and the responder waits for initiators to send commands to toggle the requested LED segment.
+
+## Testing options
+
+### Testing RSSI Filtering
+
+Each packet accepted by the responder includes extra information on the packet. One piece of information provided is the RSSI (Received signal strength indicator) which is a value in dB. With this information, the responder can choose to act based on the value of the RSSI. For example, it can ignore packets from initiators whose RSSI value is too low.
+
+To try this, run `idf.py menuconfig`, select `Example Configuration` and toggle the `Enable filtering of initiator messages based on signal strength (RSSI)` option. When enabled, an extra option, `RSSI filter value to use` is displayed. The default value is -30 dB. A value from -50 db to -20 dB can be used.
+
+Once enabled, rebuild and flash the new code to the responder. When the initiators received RSSI value falls below the configure filter value, the initiators message will be ignored, and the LED segment will not toggle.

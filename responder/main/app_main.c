@@ -52,6 +52,13 @@ static esp_err_t espnow_data_recv_cb(uint8_t *src_addr, void *data,
     ESP_LOGI(TAG, "espnow_recv, <%" PRIu32 "> [" MACSTR "][%d][%d][%u]: %.*s",
              count++, MAC2STR(src_addr), rx_ctrl->channel, rx_ctrl->rssi, size, size, (char *)data);
 
+#if ENABLE_RSSI_FILTERING
+    if (rx_ctrl->rssi < RSSI_FILTER_VALUE) {
+        ESP_LOGI(TAG, "Initiator Signal strength is too low. Ignoring request");
+        return ESP_OK;
+    }
+#endif
+
     if (strncmp(INITIATOR_NAME, (char *)data, strlen(INITIATOR_NAME)) == 0) {
         /* parse the {GPIO_PIN} at the end of the message */
         /* +1 means to skip the "/" before {GPIO_PIN} */

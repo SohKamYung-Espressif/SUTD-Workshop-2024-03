@@ -18,4 +18,13 @@ menu "Example Configuration"
         string "Your group name"
         default "GROUP_0"
 
+    config ENABLE_RSSI_FILTERING
+        bool "Enable filtering of initiator messages based on signal strength (RSSI)"
+        default n
+
+    config RSSI_FILTER_VALUE
+        depends on ENABLE_RSSI_FILTERING
+        int "RSSI filter value to use"
+        default -30
+        range -50 -20
 endmenu
