@@ -24,6 +24,10 @@ If the program builds successfully, run `idf.py -p COMx flash monitor` to flash 
 
 On start-up, the ESP32-C6 responder will gradually light up all the LED segments. This will let you verify that the LEDs are working as expect. At the end, all the LEDs are turned off and the responder waits for initiators to send commands to toggle the requested LED segment.
 
+### Wi-Fi data rate used by the initiator
+
+The Wi-Fi data rate used by the initiator to send data is now shown when a request from the initiator is received.
+
 ## Testing options
 
 ### Testing RSSI Filtering

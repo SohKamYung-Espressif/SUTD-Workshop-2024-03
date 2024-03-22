@@ -27,6 +27,48 @@ static const char *TAG = "app_main";
 
 static uint8_t RESPONDER_ADDR[ETH_ADDR_LEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
+/** Converts a human readable Wi-Fi data rate in ESP-IDF enum value
+ * Unknown rates will return the default 1 Mbits/s rate
+ *
+ * The Wi-Fi rates shown here are a subset of the supported rates.
+ * For the full set of rates, check typedef struct wifi_phy_rate_t in ESP-IDF.
+ * For ESP-IDF v5.2 the definition can be found at
+ * [ https://github.com/espressif/esp-idf/blob/release/v5.2/components/esp_wifi/include/esp_wifi_types.h ]
+ */
+
+static wifi_phy_rate_t app_get_esp_wifi_rate(unsigned rate)
+{
+    switch (rate) {
+        case 1:
+            return WIFI_PHY_RATE_1M_L;
+        case 2:
+            return WIFI_PHY_RATE_2M_L;
+        case 5:
+            return WIFI_PHY_RATE_5M_L;
+        case 6:
+            return WIFI_PHY_RATE_6M;
+        case 9:
+            return WIFI_PHY_RATE_9M;
+        case 11:
+            return WIFI_PHY_RATE_11M_L;
+        case 12:
+            return WIFI_PHY_RATE_12M;
+        case 18:
+            return WIFI_PHY_RATE_18M;
+        case 24:
+            return WIFI_PHY_RATE_24M;
+        case 36:
+            return WIFI_PHY_RATE_36M;
+        case 48:
+            return WIFI_PHY_RATE_48M;
+        case 54:
+            return WIFI_PHY_RATE_54M;
+        default:
+            ESP_LOGW(TAG, "Unknown data rate. Setting to 1 Mbits/s");
+            return WIFI_PHY_RATE_1M_L;
+    }
+}
+
 static void app_wifi_init()
 {
     esp_event_loop_create_default();
@@ -69,6 +111,8 @@ static void button_toggle_cb(void *arg, void *priv_data)
 static esp_err_t espnow_data_recv_cb(uint8_t *src_addr, void *data,
                                        size_t size, wifi_pkt_rx_ctrl_t *rx_ctrl)
 {
+    wifi_phy_rate_t data_rate;
+
     ESP_PARAM_CHECK(src_addr);
     ESP_PARAM_CHECK(data);
     ESP_PARAM_CHECK(size);
@@ -85,6 +129,16 @@ static esp_err_t espnow_data_recv_cb(uint8_t *src_addr, void *data,
             ESP_LOGI(TAG, "Bind to RESPONDER: %s", (char *)data);
             memcpy(RESPONDER_ADDR, src_addr, ETH_ADDR_LEN);
             espnow_add_peer(src_addr, NULL);
+
+            // set data rate
+            data_rate = app_get_esp_wifi_rate(WIFI_DATA_RATE);
+            esp_now_rate_config_t rate_config = {
+                .phymode = WIFI_PHY_MODE_11B,
+                .rate = data_rate,
+                .ersu = 0,
+                .dcm = 0,
+            };
+            ESP_ERROR_CHECK(esp_now_set_peer_rate_config(src_addr, &rate_config));
         }
     }
 

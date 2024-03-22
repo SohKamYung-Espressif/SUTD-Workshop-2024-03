@@ -23,3 +23,11 @@ If the program builds successfully, run `idf.py -p COMx flash monitor` to flash 
 ## Running the program
 
 On start-up, the ESP32-C6 initiator listen for a broadcast message from the responder to discover its unique MAC address. This is used to ID the responder to send messages to. When the `BOOT` button is pressed, the initiator will send a command to the responder to toggle the requested LED segment.
+
+## Testing Options
+
+### Setting the Wi-Fi data rate
+
+The Wi-Fi data rate used by the initiator can be configured. By default the initiator sends data at the Wi-Fi 1 Mbits/s data rate.
+
+To change this, run `idf.py menuconfig`, select `Example Configuration` and select the `Wi-Fi Data Rate used to send packets` option to show the possible data rates that can be used. In this example the rates can be set from 1 Mbits/s (the default) to 54 Mbits/s.

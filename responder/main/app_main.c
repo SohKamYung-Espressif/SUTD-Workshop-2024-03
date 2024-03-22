@@ -39,6 +39,59 @@ static void app_wifi_init()
     ESP_ERROR_CHECK(esp_wifi_start());
 }
 
+static void app_show_wifi_data_rate(unsigned data_rate)
+{
+    /** The Wi-Fi rates shown here are a subset of the supported rates.
+     * For the full set of rates, check typedef struct wifi_phy_rate_t in ESP-IDF.
+     * For ESP-IDF v5.2 the definition can be found at
+     * [ https://github.com/espressif/esp-idf/blob/release/v5.2/components/esp_wifi/include/esp_wifi_types.h ]
+     */
+    char *rate = NULL;
+
+    switch (data_rate) {
+        case WIFI_PHY_RATE_1M_L:
+            rate = "1 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_2M_L:
+            rate = "2 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_5M_L:
+            rate = "5 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_6M:
+            rate = "6 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_9M:
+            rate = "9 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_11M_L:
+            rate = "11 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_12M:
+            rate = "12 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_18M:
+            rate = "18 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_24M:
+            rate = "24 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_36M:
+            rate = "36 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_48M:
+            rate = "48 Mbits/s";
+            break;
+        case WIFI_PHY_RATE_54M:
+            rate = "54 Mbits/s";
+            break;
+        default:
+            rate = "Unknown";
+            break;
+    }
+    ESP_LOGI(TAG, "Data rate is: %s", rate);
+}
+
 static esp_err_t espnow_data_recv_cb(uint8_t *src_addr, void *data,
                                        size_t size, wifi_pkt_rx_ctrl_t *rx_ctrl)
 {
@@ -51,6 +104,8 @@ static esp_err_t espnow_data_recv_cb(uint8_t *src_addr, void *data,
 
     ESP_LOGI(TAG, "espnow_recv, <%" PRIu32 "> [" MACSTR "][%d][%d][%u]: %.*s",
              count++, MAC2STR(src_addr), rx_ctrl->channel, rx_ctrl->rssi, size, size, (char *)data);
+
+    app_show_wifi_data_rate(rx_ctrl->rate);
 
 #if ENABLE_RSSI_FILTERING
     if (rx_ctrl->rssi < RSSI_FILTER_VALUE) {

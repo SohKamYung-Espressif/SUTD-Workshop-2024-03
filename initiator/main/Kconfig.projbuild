@@ -22,4 +22,59 @@ menu "Example Configuration"
         string "The GPIO pin you want to control. Range from 0 to 7"
         default "0"
 
+    choice PRIV_DATA_RATE
+        prompt "Wi-Fi Data Rate used to send packets"
+        default WIFI_RATE_1M
+
+        config WIFI_RATE_1M
+            bool "1 Mbits/s"
+
+        config WIFI_RATE_2M
+            bool "2 Mbits/s"
+
+        config WIFI_RATE_5M
+            bool "5 Mbits/s"
+
+        config WIFI_RATE_6M
+            bool "6 Mbits/s"
+
+        config WIFI_RATE_9M
+            bool "9 Mbits/s"
+
+        config WIFI_RATE_11M
+            bool "11 Mbits/s"
+
+        config WIFI_RATE_12M
+            bool "12 Mbits/s"
+
+        config WIFI_RATE_18M
+            bool "18 Mbits/s"
+
+        config WIFI_RATE_24M
+            bool "24 Mbits/s"
+
+        config WIFI_RATE_36M
+            bool "36 Mbits/s"
+
+        config WIFI_RATE_48M
+            bool "48 Mbits/s"
+
+        config WIFI_RATE_54M
+            bool "54 Mbits/s"
+    endchoice
+
+    config WIFI_DATA_RATE
+        int
+        default 1 if WIFI_RATE_1M
+        default 2 if WIFI_RATE_2M
+        default 5 if WIFI_RATE_5M
+        default 6 if WIFI_RATE_6M
+        default 9 if WIFI_RATE_9M
+        default 11 if WIFI_RATE_11M
+        default 12 if WIFI_RATE_12M
+        default 18 if WIFI_RATE_18M
+        default 36 if WIFI_RATE_36M
+        default 24 if WIFI_RATE_24M
+        default 48 if WIFI_RATE_48M
+        default 54 if WIFI_RATE_54M
 endmenu
